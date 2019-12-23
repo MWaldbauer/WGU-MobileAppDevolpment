@@ -2,6 +2,7 @@ package com.example.mwaldbauerscheduler;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
@@ -20,6 +21,7 @@ import com.example.mwaldbauerscheduler.View.SchedulerListAdapter;
 import com.example.mwaldbauerscheduler.ViewModel.SchedulerViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -48,6 +50,13 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("Term changed in Main Activity", ""); //** Remove later
             }
         });
+
+        //testing Data retrieval
+        Term testTerm = new Term("House",null,null);
+        mSchedulerViewModel.insertTerm(testTerm);
+        List<Term> testTermList = mSchedulerViewModel.getAllTerms().getValue();
+        //Generates Null Pointer
+        //Log.i("Term changed in Main Activity", testTermList.iterator().next().getTerm()); //** Remove later
 
         //new term fab
         FloatingActionButton fab = findViewById(R.id.fab);

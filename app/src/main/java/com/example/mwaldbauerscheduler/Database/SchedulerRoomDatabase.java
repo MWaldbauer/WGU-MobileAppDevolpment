@@ -3,10 +3,12 @@ package com.example.mwaldbauerscheduler.Database;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.mwaldbauerscheduler.DAO.AssessmentDao;
 import com.example.mwaldbauerscheduler.DAO.CourseDao;
@@ -27,9 +29,9 @@ public abstract class SchedulerRoomDatabase extends RoomDatabase {
     public abstract AssessmentDao assessmentDao();
 
     private static volatile SchedulerRoomDatabase INSTANCE;
-//    private static final int NUMBER_OF_THREADS = 4;
-//    static final ExecutorService databaseWriteExecutor =
-//            Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+    private static final int NUMBER_OF_THREADS = 4;
+    static final ExecutorService databaseWriteExecutor =
+            Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     public static SchedulerRoomDatabase getDatabase(final Context context) {
         Log.i("getDatabase called (Term)", ""); //** Remove later
@@ -38,10 +40,27 @@ public abstract class SchedulerRoomDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             SchedulerRoomDatabase.class, "scheduler_database")
+                            .addCallback(sRoomDatabaseCallback)
                             .build();
                 }
             }
         }
         return INSTANCE;
     }
+
+    private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
+        @Override
+        public void onOpen(@NonNull SupportSQLiteDatabase db) {
+            super.onOpen(db);
+            databaseWriteExecutor.execute(() -> {
+            TermDao dao = INSTANCE.termDao();
+            //dao.deleteAll();
+
+            Term term = new Term("Summer", null,null);
+            dao.insert(term);
+
+            });
+
+        }
+    };
 }
