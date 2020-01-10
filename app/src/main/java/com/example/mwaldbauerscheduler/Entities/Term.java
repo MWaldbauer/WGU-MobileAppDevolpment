@@ -5,13 +5,15 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.sql.Date;
 
-@Entity(tableName = "term_table")
+@Entity(tableName = "term_table2", indices = @Index(value = {"term"}, unique = true))
 public class Term {
 
+    @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "termID")
     private int termID;
@@ -36,6 +38,15 @@ public class Term {
 
         Log.i("Term name in constructor",term); //** Remove later
         Log.i("Term ID", Integer.toString(termID)); //** Remove later. Used to make sure autogenerate works.
+    }
+
+    public String toString() {
+        String startDateString = startDate.toString();
+        String stopDateString = stopDate.toString();
+        String newString = term +
+                "\nStart Date:" + startDateString +
+                "\nStop Date:" + stopDateString;
+        return newString;
     }
 
     public int getTermID() {

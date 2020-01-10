@@ -26,11 +26,11 @@ public class SchedulerRepository {
 
     public LiveData<List<Term>> mAllTerms;
     private LiveData<List<Course>> mAllCourses;
-    private LiveData<List<Course>> mAllCoursesByTermID;
+    private LiveData<List<Course>> mAllCoursesByTerm;
     private LiveData<List<Assessment>> mAllAssessments;
     private LiveData<List<Assessment>> mAllAssessmentsByCourseID;
 
-    private int termID;
+    private String term;
     private int courseID;
 
 
@@ -49,7 +49,7 @@ public class SchedulerRepository {
         //Live Data
         mAllTerms = mTermDao.getAllTerms();
         mAllCourses = mCourseDao.getCourses();
-        mAllCoursesByTermID = mCourseDao.getCoursesByTermID(termID);
+        mAllCoursesByTerm = mCourseDao.getCoursesByTerm(term);
         mAllAssessments = mAssessmentDao.getAssessments();
         mAllAssessmentsByCourseID = mAssessmentDao.getAssessmentsByCourseID(courseID);
 
@@ -66,8 +66,8 @@ public class SchedulerRepository {
     public LiveData<List<Course>> getAllCourses() {
         return mAllCourses;
     };
-    public LiveData<List<Course>> getAllCoursesByTermID() {
-        return mAllCoursesByTermID;
+    public LiveData<List<Course>> getAllCoursesByTerm() {
+        return mAllCoursesByTerm;
     };
     public LiveData<List<Assessment>> getAllAssessments() {
         return mAllAssessments;
@@ -100,12 +100,18 @@ public class SchedulerRepository {
     {new UpdateAssessmentAsyncTask(mAssessmentDao).execute(assessment);}
 
     //deletes
-    public void deleteTerm(Term term) {new DeleteTermAsyncTask(mTermDao).execute(term);}
+    public void deleteTerm(Term term) {new DeleteTermAsyncTask(mTermDao).execute(term);} //this said assessment and worked
 
-    public  void deleteCourse(Course course) {new DeleteCourseAsyncTask(mCourseDao).execute(course);}
+    public void deleteCourse(Course course) {new DeleteCourseAsyncTask(mCourseDao).execute(course);}
 
     public void deleteAssessment(Assessment assessment)
     {new DeleteAssessmentAsyncTask(mAssessmentDao).execute(assessment);}
+
+    public void deleteAllTerms() {new DeleteAllTermsAsyncTask(mTermDao).execute();}
+
+    public void deleteAllCourses() {new DeleteAllCoursesAsyncTask(mCourseDao).execute();}
+
+    public void deleteAllAssessments() {new DeleteAllAssessmentsAsyncTask(mAssessmentDao).execute();}
 
     //insertAsyncTasks
     private static class InsertTermAsyncTask extends AsyncTask<Term, Void, Void> {
@@ -247,4 +253,50 @@ public class SchedulerRepository {
         }
     }
 
+    //deleteAll calls
+
+    private static class DeleteAllTermsAsyncTask extends AsyncTask<Term, Void, Void> {
+
+        private TermDao mAsyncTaskDao;
+
+        private DeleteAllTermsAsyncTask(TermDao termDao) {
+            mAsyncTaskDao = termDao;
+        }
+
+        @Override
+        protected Void doInBackground(final Term... params) {
+            mAsyncTaskDao.deleteTermTable();
+            return null;
+        }
+    }
+
+    private static class DeleteAllCoursesAsyncTask extends AsyncTask<Course, Void, Void> {
+
+        private CourseDao mAsyncTaskDao;
+
+        private DeleteAllCoursesAsyncTask(CourseDao courseDao) {
+            mAsyncTaskDao = courseDao;
+        }
+
+        @Override
+        protected Void doInBackground(final Course... params) {
+            mAsyncTaskDao.deleteCoursesTable();
+            return null;
+        }
+    }
+
+    private static class DeleteAllAssessmentsAsyncTask extends AsyncTask<Assessment, Void, Void> {
+
+        private AssessmentDao mAsyncTaskDao;
+
+        private DeleteAllAssessmentsAsyncTask(AssessmentDao assessmentDao) {
+            mAsyncTaskDao = assessmentDao;
+        }
+
+        @Override
+        protected Void doInBackground(final Assessment... params) {
+            mAsyncTaskDao.deleteAssessmentTable();
+            return null;
+        }
+    }
 }

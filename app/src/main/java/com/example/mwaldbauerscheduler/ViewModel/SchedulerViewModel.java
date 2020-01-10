@@ -20,7 +20,7 @@ public class SchedulerViewModel extends AndroidViewModel {
     //Live Data
     public LiveData<List<Term>> mAllTerms; //checking if public helps
     private LiveData<List<Course>> mAllCourses;
-    private LiveData<List<Course>> mAllCoursesByTermID;
+    private LiveData<List<Course>> mAllCoursesByTerm;
     private LiveData<List<Assessment>> mAllAssessments;
     private LiveData<List<Assessment>> mAllAssessmentsByCourseID;
 
@@ -30,7 +30,7 @@ public class SchedulerViewModel extends AndroidViewModel {
         mRepository = new SchedulerRepository(application);
         mAllTerms = mRepository.getAllTerms();
         mAllCourses = mRepository.getAllCourses();
-        mAllCoursesByTermID = mRepository.getAllCoursesByTermID();
+        mAllCoursesByTerm = mRepository.getAllCoursesByTerm();
         mAllAssessments = mRepository.getAllAssessments();
         mAllAssessmentsByCourseID = mRepository.getAllAssessmentsByCourseID();
     }
@@ -43,8 +43,8 @@ public class SchedulerViewModel extends AndroidViewModel {
     public LiveData<List<Course>> getAllCourses() {
         return mAllCourses;
     };
-    public LiveData<List<Course>> getAllCoursesByTermID() {
-        return mAllCoursesByTermID;
+    public LiveData<List<Course>> getAllCoursesByTerm() {
+        return mAllCoursesByTerm;
     };
     public LiveData<List<Assessment>> getAllAssessments() {
         return mAllAssessments;
@@ -77,4 +77,13 @@ public class SchedulerViewModel extends AndroidViewModel {
     public  void deleteCourse(Course course) {mRepository.deleteCourse(course);}
 
     public void deleteAssessment(Assessment assessment) {mRepository.deleteAssessment(assessment);}
+
+    //delete Tables
+
+    public void deleteAllTerms() {mRepository.deleteAllTerms();}
+
+    public void deleteAllCourses() {mRepository.deleteAllCourses();}
+
+    public void deleteAllAssessments() {mRepository.deleteAllAssessments();}
+
 }

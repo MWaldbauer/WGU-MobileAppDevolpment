@@ -106,7 +106,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:text="@string/button_save"
+        android:text="Update"
         android:textColor="@color/buttonLabel"
         android:layout_below="@id/edit_end_date_month"
         />
@@ -126,6 +126,57 @@
         android:layout_below="@+id/edit_start_date_month"
         android:layout_marginTop="@dimen/big_padding"
         android:text="Term End Date" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_save"
+        android:layout_marginTop="10dp"
+        android:text="TERM ALARM STATUS"
+        android:textAlignment="center"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/alarmTermStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView4"
+        android:layout_alignStart="@+id/textView4"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="8dp"
+        android:text="Set Alarm for\n Term Start"
+        />
+
+    <Button
+        android:id="@+id/alarmTermEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView4"
+        android:layout_alignEnd="@+id/textView4"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:text="Set Alarm for\n Term End"
+        />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/deleteAlarmsButton"
+        android:layout_alignParentBottom="false"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="DELETE TERM" />
+
+    <Button
+        android:id="@+id/deleteAlarmsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="75dp"
+        android:text="Delete All Alarms" />
 
 
 </RelativeLayout>

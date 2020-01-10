@@ -11,7 +11,10 @@ import java.util.List;
 @Dao
 public interface TermDao extends BaseDao<Term> {
 
-    @Query("SELECT * FROM term_table ORDER BY startDate ASC")
+    @Query("SELECT * FROM term_table2 ORDER BY startDate ASC")
     LiveData<List<Term>> getAllTerms();
+
+    @Query("DELETE FROM term_table2")
+    void deleteTermTable();
 
 }

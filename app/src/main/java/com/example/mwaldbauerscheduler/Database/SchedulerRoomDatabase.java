@@ -17,10 +17,12 @@ import com.example.mwaldbauerscheduler.Entities.Assessment;
 import com.example.mwaldbauerscheduler.Entities.Course;
 import com.example.mwaldbauerscheduler.Entities.Term;
 
+import java.time.Instant;
+import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Term.class, Course.class, Assessment.class}, version = 1, exportSchema = false)
+@Database(entities = {Term.class, Course.class, Assessment.class}, version = 2, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class SchedulerRoomDatabase extends RoomDatabase {
 
@@ -39,8 +41,8 @@ public abstract class SchedulerRoomDatabase extends RoomDatabase {
             synchronized (SchedulerRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            SchedulerRoomDatabase.class, "scheduler_database")
-                            .addCallback(sRoomDatabaseCallback)
+                            SchedulerRoomDatabase.class, "scheduler_database").
+                            fallbackToDestructiveMigration()
                             .build();
                 }
             }
@@ -48,19 +50,20 @@ public abstract class SchedulerRoomDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-    private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
-        @Override
-        public void onOpen(@NonNull SupportSQLiteDatabase db) {
-            super.onOpen(db);
-            databaseWriteExecutor.execute(() -> {
-            TermDao dao = INSTANCE.termDao();
-            //dao.deleteAll();
-
-            Term term = new Term("Summer", null,null);
-            dao.insert(term);
-
-            });
-
-        }
-    };
+//    private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
+//        @Override
+//        public void onOpen(@NonNull SupportSQLiteDatabase db) {
+//            super.onOpen(db);
+//            databaseWriteExecutor.execute(() -> {
+//            TermDao dao = INSTANCE.termDao();
+//            //dao.deleteAll();
+//            java.util.Date testDate = new Date(System.currentTimeMillis());
+//            java.sql.Date newDate = new java.sql.Date(testDate.getTime());
+//
+//            Term term = new Term("Summer 2019", newDate, newDate);;
+//
+//            });
+//
+//        }
+//    };
 }

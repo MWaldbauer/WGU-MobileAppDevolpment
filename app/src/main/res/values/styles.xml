@@ -16,7 +16,7 @@
         <item name="android:textAppearance">@android:style/TextAppearance.Large</item>
     </style>
 
-    <string name="hint_term">Term...</string>
+    <string name="hint_term">Insert Term Name...</string>
     <string name="button_save">Save</string>
     <string name="empty_not_saved">Term not saved because it is empty.</string>
     <string name="saved">Saved.</string>

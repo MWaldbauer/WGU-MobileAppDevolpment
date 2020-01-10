@@ -9,7 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.NewTermActivity"></activity>
+        <activity android:name=".Activities.CourseDetailsActivity"></activity>
+        <activity android:name=".Activities.NewCourseActivity" />
+
+        <service
+            android:name=".MyIntentService"
+            android:exported="false" />
+
+        <receiver
+            android:name=".MyReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".Activities.CoursesActivity" />
+        <activity android:name=".Activities.TermDetailsActivity" />
+        <activity android:name=".Activities.NewTermActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

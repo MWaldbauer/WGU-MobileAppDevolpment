@@ -18,6 +18,7 @@ import static androidx.room.ForeignKey.RESTRICT;
 
 public class Assessment {
 
+    @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "assessmentID")
     private int assessmentID;
