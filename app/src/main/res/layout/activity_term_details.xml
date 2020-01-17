@@ -2,181 +2,202 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp">
+    android:layout_height="match_parent">
 
     <include layout="@layout/app_bar" />
 
-    <EditText
-        android:id="@+id/edit_term"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/small_padding"
-        android:layout_marginBottom="@dimen/big_padding"
-        android:fontFamily="sans-serif-light"
-        android:hint="@string/hint_term"
-        android:inputType="textAutoComplete"
-        android:padding="@dimen/small_padding"
-        android:textSize="18sp" />
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
 
-    <EditText
-        android:id="@+id/edit_start_date_month"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="@dimen/small_padding"
-        android:layout_marginBottom="@dimen/big_padding"
-        android:fontFamily="sans-serif-light"
-        android:hint="Term Month"
-        android:padding="@dimen/small_padding"
-        android:textSize="18sp" />
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
 
-    <EditText
-        android:id="@+id/edit_start_date_day"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="@dimen/small_padding"
-        android:layout_marginBottom="@dimen/big_padding"
-        android:layout_toRightOf="@id/edit_start_date_month"
-        android:fontFamily="sans-serif-light"
-        android:hint="Term Day"
-        android:padding="@dimen/small_padding"
-        android:textSize="18sp" />
+        <Button
+            android:id="@+id/button_addCourse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_end_date_month"
+            android:layout_marginTop="75dp"
+            android:background="@color/colorPrimary"
+            android:text="View/Add Course(s)"
+            android:textColor="@color/buttonLabel" />
 
-    <EditText
-        android:id="@+id/edit_start_date_year"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="9dp"
-        android:layout_marginTop="@dimen/small_padding"
-        android:layout_marginBottom="@dimen/big_padding"
-        android:layout_toRightOf="@id/edit_start_date_day"
-        android:fontFamily="sans-serif-light"
-        android:hint="Term Year"
-        android:padding="@dimen/small_padding" />
+        <EditText
+            android:id="@+id/edit_term"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_padding"
+            android:layout_marginBottom="@dimen/big_padding"
+            android:fontFamily="sans-serif-light"
+            android:hint="@string/hint_term"
+            android:inputType="textAutoComplete"
+            android:padding="@dimen/small_padding"
+            android:textSize="18sp" />
 
-    <EditText
-        android:id="@+id/edit_end_date_month"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView3"
-        android:layout_marginTop="@dimen/small_padding"
-        android:layout_marginBottom="@dimen/big_padding"
-        android:fontFamily="sans-serif-light"
-        android:hint="Term Month"
-        android:padding="@dimen/small_padding"
-        android:textSize="18sp" />
+        <EditText
+            android:id="@+id/edit_start_date_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView2"
+            android:layout_marginTop="@dimen/small_padding"
+            android:layout_marginBottom="@dimen/big_padding"
+            android:fontFamily="sans-serif-light"
+            android:hint="Term Month"
+            android:padding="@dimen/small_padding"
+            android:textSize="18sp" />
 
-    <EditText
-        android:id="@+id/edit_end_date_day"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView3"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="@dimen/small_padding"
-        android:layout_marginBottom="@dimen/big_padding"
-        android:layout_toRightOf="@id/edit_end_date_month"
-        android:fontFamily="sans-serif-light"
-        android:hint="Term Day"
-        android:padding="@dimen/small_padding"
-        android:textSize="18sp" />
+        <EditText
+            android:id="@+id/edit_start_date_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView2"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="@dimen/small_padding"
+            android:layout_marginBottom="@dimen/big_padding"
+            android:layout_toRightOf="@id/edit_start_date_month"
+            android:fontFamily="sans-serif-light"
+            android:hint="Term Day"
+            android:padding="@dimen/small_padding"
+            android:textSize="18sp" />
 
-    <EditText
-        android:id="@+id/edit_end_date_year"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView3"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="@dimen/small_padding"
-        android:layout_marginBottom="@dimen/big_padding"
-        android:layout_toRightOf="@id/edit_end_date_day"
-        android:fontFamily="sans-serif-light"
-        android:hint="Term Year"
-        android:padding="@dimen/small_padding" />
+        <EditText
+            android:id="@+id/edit_start_date_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView2"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="@dimen/small_padding"
+            android:layout_marginBottom="@dimen/big_padding"
+            android:layout_toRightOf="@id/edit_start_date_day"
+            android:fontFamily="sans-serif-light"
+            android:hint="Term Year"
+            android:padding="@dimen/small_padding" />
+
+        <EditText
+            android:id="@+id/edit_end_date_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView3"
+            android:layout_marginTop="@dimen/small_padding"
+            android:layout_marginBottom="@dimen/big_padding"
+            android:fontFamily="sans-serif-light"
+            android:hint="Term Month"
+            android:padding="@dimen/small_padding"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/edit_end_date_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView3"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="@dimen/small_padding"
+            android:layout_marginBottom="@dimen/big_padding"
+            android:layout_toRightOf="@id/edit_end_date_month"
+            android:fontFamily="sans-serif-light"
+            android:hint="Term Day"
+            android:padding="@dimen/small_padding"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/edit_end_date_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView3"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="@dimen/small_padding"
+            android:layout_marginBottom="@dimen/big_padding"
+            android:layout_toRightOf="@id/edit_end_date_day"
+            android:fontFamily="sans-serif-light"
+            android:hint="Term Year"
+            android:padding="@dimen/small_padding" />
 
 
-    <Button
-        android:id="@+id/button_save"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:text="Update"
-        android:textColor="@color/buttonLabel"
-        android:layout_below="@id/edit_end_date_month"
-        />
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_end_date_month"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimary"
+            android:text="Update"
+            android:textColor="@color/buttonLabel" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/edit_term"
-        android:layout_marginTop="@dimen/big_padding"
-        android:text="Term Start Date" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edit_term"
+            android:layout_marginTop="@dimen/big_padding"
+            android:text="Term Start Date" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/edit_start_date_month"
-        android:layout_marginTop="@dimen/big_padding"
-        android:text="Term End Date" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edit_start_date_month"
+            android:layout_marginTop="@dimen/big_padding"
+            android:text="Term End Date" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button_save"
-        android:layout_marginTop="10dp"
-        android:text="TERM ALARM STATUS"
-        android:textAlignment="center"
-        android:textSize="18sp" />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button_addCourse"
+            android:layout_marginTop="20dp"
+            android:text="CONTROL ALARMS"
+            android:textAlignment="center"
+            android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/alarmTermStart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView4"
-        android:layout_alignStart="@+id/textView4"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="8dp"
-        android:text="Set Alarm for\n Term Start"
-        />
+        <Button
+            android:id="@+id/alarmTermStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView4"
+            android:layout_alignStart="@+id/textView4"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="8dp"
+            android:text="Set Alarm for\n Term Start"
+            />
 
-    <Button
-        android:id="@+id/alarmTermEnd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView4"
-        android:layout_alignEnd="@+id/textView4"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="8dp"
-        android:text="Set Alarm for\n Term End"
-        />
+        <Button
+            android:id="@+id/alarmTermEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView4"
+            android:layout_alignEnd="@+id/textView4"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="8dp"
+            android:text="Set Alarm for\n Term End"
+            />
 
-    <Button
-        android:id="@+id/deleteButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/deleteAlarmsButton"
-        android:layout_alignParentBottom="false"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="DELETE TERM" />
+        <Button
+            android:id="@+id/deleteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/deleteAlarmsButton"
+            android:layout_alignParentBottom="false"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="DELETE TERM" />
 
-    <Button
-        android:id="@+id/deleteAlarmsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView4"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="75dp"
-        android:text="Delete All Alarms" />
+        <Button
+            android:id="@+id/deleteAlarmsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView4"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="75dp"
+            android:text="Delete All Alarms" />
+
+        </RelativeLayout>
+    </ScrollView>
 
 
 </RelativeLayout>

@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mwaldbauerscheduler.MainActivity;
 import com.example.mwaldbauerscheduler.MyReceiver;
 import com.example.mwaldbauerscheduler.R;
+import com.example.mwaldbauerscheduler.ViewModel.SchedulerViewModel;
 
 import java.util.Date;
 
@@ -128,6 +129,7 @@ public class TermDetailsActivity extends AppCompatActivity {
         final Button deleteButton = findViewById(R.id.deleteButton);
         deleteButton.setOnClickListener(v -> {
             Intent replyIntent = new Intent();
+            //check for null here somehow. need mSchedulerViewModel?
             setResult(RESULT_DELETE, replyIntent);
             finish();
         });

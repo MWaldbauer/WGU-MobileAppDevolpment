@@ -2,7 +2,6 @@ package com.example.mwaldbauerscheduler.Activities;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,13 +23,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.mwaldbauerscheduler.Entities.Course;
-import com.example.mwaldbauerscheduler.Entities.Course;
-import com.example.mwaldbauerscheduler.Entities.Term;
 import com.example.mwaldbauerscheduler.MainActivity;
 import com.example.mwaldbauerscheduler.MyReceiver;
-import com.example.mwaldbauerscheduler.MyValidator;
 import com.example.mwaldbauerscheduler.R;
-import com.example.mwaldbauerscheduler.View.CourseListAdapter;
 import com.example.mwaldbauerscheduler.View.CourseListAdapter;
 import com.example.mwaldbauerscheduler.ViewModel.SchedulerViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -45,8 +40,10 @@ import static com.example.mwaldbauerscheduler.MainActivity.notificationManager;
 public class CoursesActivity extends AppCompatActivity {
 
     //    public static final String CHANNEL_ID = "MWScheduler";
+    public static final int DEFAULT_ACTIVITY_REQUEST_CODE = 0;
     final int NEW_COURSE_ACTIVITY_REQUEST_CODE = 10;
     final int COURSE_DETAIL_ACTIVITY_REQUEST_CODE = 20;
+    public static final int NEW_ASSESSMENT_ACTIVITY_REQUEST_CODE = 100;
     SchedulerViewModel mSchedulerViewModel;
     //    public static final MyValidator schedulerValidator = new MyValidator();
     Course selectedCourse = null;
@@ -58,14 +55,7 @@ public class CoursesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courses);
 
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        toolbar.setNavigationIcon(R.drawable.ic_toc_black_24dp);
-
-        //getSupportActionBar().
-        //getSupportActionBar().setIcon(R.drawable.ic_toc_black_24dp);
-
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        RecyclerView recyclerView = findViewById(R.id.recyclerview2);
         final CourseListAdapter adapter = new CourseListAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -82,24 +72,8 @@ public class CoursesActivity extends AppCompatActivity {
             }
         });
 
-        //test data
-        Date sampledate1 = new Date(6,31,2020);
-        Date sampledate2 = new Date(12,31,2020);
-
-        java.sql.Date startDateSQL = new java.sql.Date(sampledate1.getTime());
-        java.sql.Date endDateSQL = new java.sql.Date(sampledate2.getTime());
-
-        Term fakeTerm = new Term(String.valueOf(System.currentTimeMillis()), startDateSQL, endDateSQL);
-        Log.i("Course added to term", String.valueOf(fakeTerm.getTerm())); //This is where we start tomorrow <3
-
-        Course course = new Course(
-                "First Course", startDateSQL, false, endDateSQL,
-                false, "Plan to Take", fakeTerm.getTerm(),
-                "Mr. mentor", "phone number", "name@mail.com");
-        mSchedulerViewModel.insertCourse(course);
-
         //new Course fab
-        FloatingActionButton fab = findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab3);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,7 +82,7 @@ public class CoursesActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab2 = findViewById(R.id.fab2);
+        FloatingActionButton fab2 = findViewById(R.id.fab4);
         fab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -148,15 +122,26 @@ public class CoursesActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
         switch (item.getItemId()) {
+            case R.id.action_terms: //these can be changed when I know what to put here also need to update menu resource
+                intent = new Intent(this, MainActivity.class);
+                startActivityForResult(intent, DEFAULT_ACTIVITY_REQUEST_CODE);
+
+                //once actions are decided, propagate changes to all activities.
+                return true;
+
             case R.id.action_settings: //these can be changed when I know what to put here also need to update menu resource
+                intent = new Intent(this, AssessmentsActivity.class);
+                startActivityForResult(intent, DEFAULT_ACTIVITY_REQUEST_CODE);
+
                 //once actions are decided, propagate changes to all activities.
                 return true;
 
             case R.id.action_favorite:
                 // User chose the "Favorite" action, mark the current item
-                // as a favorite...
-                //onBackPressed();
+                intent = new Intent(this, CoursesActivity.class);
+                startActivityForResult(intent, DEFAULT_ACTIVITY_REQUEST_CODE);
                 return true;
 
             default:
@@ -194,18 +179,9 @@ public class CoursesActivity extends AppCompatActivity {
             java.sql.Date startDateSQL = new java.sql.Date(startDate.getTime());
             java.sql.Date endDateSQL = new java.sql.Date(endDate.getTime());
 
-
-//            Course course = new Course(data.getStringExtra(NewCourseActivity.EXTRA_REPLY_NAME),
-//                    startDateSQL,
-//                    endDateSQL);
-//            mSchedulerViewModel.insertCourse(course); Update this method here!
-
-//            Log.i("Course name in MainActivity",course.getCourse()); //** Remove later
-//            Log.i("Course start date in MainActivity",course.getStartDate().toString()); //** Remove later
-
         }
 
-        if (requestCode == COURSE_DETAIL_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+        else if (requestCode == COURSE_DETAIL_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
 
             java.util.Date startDate =  new Date(
                     data.getIntExtra(
@@ -223,9 +199,6 @@ public class CoursesActivity extends AppCompatActivity {
             java.sql.Date endDateSQL = new java.sql.Date(endDate.getTime());
             String newName = data.getStringExtra(CourseDetailsActivity.EXTRA_REPLY_NAME);
 
-//            Course course = new Course(data.getStringExtra(CourseDetailsActivity.EXTRA_REPLY_NAME),
-//                    startDateSQL,
-//                    endDateSQL);
             selectedCourse.setCourse(newName);
             selectedCourse.setStartDate(startDateSQL);
             selectedCourse.setStopDate(endDateSQL);
@@ -233,12 +206,16 @@ public class CoursesActivity extends AppCompatActivity {
 
         }
 
-        if (requestCode == COURSE_DETAIL_ACTIVITY_REQUEST_CODE && resultCode == RESULT_DELETE) {
+        else if (requestCode == COURSE_DETAIL_ACTIVITY_REQUEST_CODE && resultCode == RESULT_DELETE) {
             mSchedulerViewModel.deleteCourse(selectedCourse);
             Toast.makeText(
                     getApplicationContext(),
                     "Selected course deleted.",
                     Toast.LENGTH_LONG).show();
+        }
+
+        else if (requestCode == DEFAULT_ACTIVITY_REQUEST_CODE) {
+            //do nothing
         }
 
         else {

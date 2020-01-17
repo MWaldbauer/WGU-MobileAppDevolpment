@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
-import androidx.room.Dao;
 
 import com.example.mwaldbauerscheduler.DAO.AssessmentDao;
 import com.example.mwaldbauerscheduler.DAO.CourseDao;
@@ -15,8 +14,6 @@ import com.example.mwaldbauerscheduler.Entities.Course;
 import com.example.mwaldbauerscheduler.Entities.Term;
 
 import java.util.List;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 public class SchedulerRepository {
 
@@ -25,13 +22,16 @@ public class SchedulerRepository {
     private AssessmentDao mAssessmentDao;
 
     public LiveData<List<Term>> mAllTerms;
+    private LiveData<List<Course>> mCoursesAttachedToTerm;
     private LiveData<List<Course>> mAllCourses;
     private LiveData<List<Course>> mAllCoursesByTerm;
+    public List<Course> mAllCoursesByTermID;
     private LiveData<List<Assessment>> mAllAssessments;
-    private LiveData<List<Assessment>> mAllAssessmentsByCourseID;
+    private LiveData<List<Assessment>> mAllAssessmentsByCourse;
 
     private String term;
-    private int courseID;
+    private String course;
+    private int termID;
 
 
     // Note that in order to unit test the WordRepository, you have to remove the Application
@@ -48,10 +48,12 @@ public class SchedulerRepository {
 
         //Live Data
         mAllTerms = mTermDao.getAllTerms();
+        mCoursesAttachedToTerm = mTermDao.getCoursesAttachedToTerm(term);
         mAllCourses = mCourseDao.getCourses();
-        mAllCoursesByTerm = mCourseDao.getCoursesByTerm(term);
+        mAllCoursesByTerm = mCourseDao.getAllCoursesByTerm(term);
+        mAllCoursesByTermID = mCourseDao.getAllCoursesByTermID(termID);
         mAllAssessments = mAssessmentDao.getAssessments();
-        mAllAssessmentsByCourseID = mAssessmentDao.getAssessmentsByCourseID(courseID);
+        mAllAssessmentsByCourse = mAssessmentDao.getAssessmentsByCourse(course);
 
     }
 
@@ -59,21 +61,31 @@ public class SchedulerRepository {
     // Observed LiveData will notify the observer when the data has changed.
 
     //do I need to make these Public? Yes, yes I do.
-    //Do I need to pass termID and courseID here? And do they connect
+    //Do I need to pass term and course here? And do they connect
     public LiveData<List<Term>> getAllTerms() {
         return mAllTerms;
     }
+
+    public LiveData<List<Course>> getCoursesAttachedToTerm(String term) {
+        return mCoursesAttachedToTerm;
+    };
+
     public LiveData<List<Course>> getAllCourses() {
         return mAllCourses;
     };
-    public LiveData<List<Course>> getAllCoursesByTerm() {
+    public LiveData<List<Course>> getAllCoursesByTerm(String term) {
         return mAllCoursesByTerm;
     };
+
+    public List<Course> getAllCoursesByTermID(int termID) {
+        return mAllCoursesByTermID;
+    };
+
     public LiveData<List<Assessment>> getAllAssessments() {
         return mAllAssessments;
     };
-    public LiveData<List<Assessment>> getAllAssessmentsByCourseID() {
-        return mAllAssessmentsByCourseID;
+    public LiveData<List<Assessment>> getAllAssessmentsByCourse() {
+        return mAllAssessmentsByCourse.getValue() == null ? null : mAllAssessmentsByCourse;
     };
 
     // You must call this on a non-UI thread or your app will throw an exception. Room ensures

@@ -2,7 +2,6 @@ package com.example.mwaldbauerscheduler;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -24,15 +23,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.mwaldbauerscheduler.Activities.AssessmentsActivity;
 import com.example.mwaldbauerscheduler.Activities.CoursesActivity;
 import com.example.mwaldbauerscheduler.Activities.NewTermActivity;
 import com.example.mwaldbauerscheduler.Activities.TermDetailsActivity;
+import com.example.mwaldbauerscheduler.Entities.Course;
 import com.example.mwaldbauerscheduler.Entities.Term;
 import com.example.mwaldbauerscheduler.View.TermListAdapter;
 import com.example.mwaldbauerscheduler.ViewModel.SchedulerViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -41,7 +41,10 @@ public class MainActivity extends AppCompatActivity {
     public static final String CHANNEL_ID = "MWScheduler";
     public static final int NEW_TERM_ACTIVITY_REQUEST_CODE = 1;
     public static final int TERM_DETAIL_ACTIVITY_REQUEST_CODE = 2;
-    private SchedulerViewModel mSchedulerViewModel;
+    public static final int NEW_COURSE_ACTIVITY_REQUEST_CODE = 10;
+    public static final int NEW_ASSESSMENT_ACTIVITY_REQUEST_CODE = 100;
+    public static final int DEFAULT_ACTIVITY_REQUEST_CODE = 0;
+    public static SchedulerViewModel mSchedulerViewModel;
     public static final MyValidator schedulerValidator = new MyValidator();
     public Term selectedTerm = null;
     public static final int RESULT_DELETE = -2;
@@ -54,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         createNotificationChannel();
         setContentView(R.layout.activity_main);
-         notificationManager = NotificationManagerCompat.from(this);
+        notificationManager = NotificationManagerCompat.from(this);
         //toolbar
 
 //        Toolbar toolbar = findViewById(R.id.toolbar);
@@ -81,6 +84,18 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("Term changed in Main Activity", ""); //** Remove later
             }
         });
+
+        //observers
+        mSchedulerViewModel.getAllCoursesByTerm("").observe(this, new Observer<List<Course>>() {
+            @Override
+            public void onChanged(@Nullable final List<Course> courses) {
+                // Update the cached copy of the words in the adapter.
+                if (selectedTerm!= null) {
+                    adapter.setAllCoursesByTerm(selectedTerm.getTerm());
+                }
+            }
+        });
+
 
         //new term fab
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -121,10 +136,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //mSchedulerViewModel.deleteAllTerms();
-        //testing courses
-        Intent intent = new Intent(MainActivity.this, CoursesActivity.class);
-        startActivityForResult(intent, NEW_TERM_ACTIVITY_REQUEST_CODE);
+        testAddingItems();
+
     }
 
     public void onResume() {
@@ -142,15 +155,26 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
         switch (item.getItemId()) {
+            case R.id.action_terms: //these can be changed when I know what to put here also need to update menu resource
+                intent = new Intent(MainActivity.this, MainActivity.class);
+                startActivityForResult(intent, DEFAULT_ACTIVITY_REQUEST_CODE);
+
+                //once actions are decided, propagate changes to all activities.
+                return true;
+
             case R.id.action_settings: //these can be changed when I know what to put here also need to update menu resource
+                intent = new Intent(MainActivity.this, AssessmentsActivity.class);
+                startActivityForResult(intent, DEFAULT_ACTIVITY_REQUEST_CODE);
+
                 //once actions are decided, propagate changes to all activities.
                 return true;
 
             case R.id.action_favorite:
                 // User chose the "Favorite" action, mark the current item
-                // as a favorite...
-                //onBackPressed();
+                intent = new Intent(MainActivity.this, CoursesActivity.class);
+                startActivityForResult(intent, DEFAULT_ACTIVITY_REQUEST_CODE);
                 return true;
 
             default:
@@ -226,11 +250,30 @@ public class MainActivity extends AppCompatActivity {
 
         }
         else if (requestCode == TERM_DETAIL_ACTIVITY_REQUEST_CODE && resultCode == RESULT_DELETE) {
-            mSchedulerViewModel.deleteTerm(selectedTerm);
-            Toast.makeText(
-                    getApplicationContext(),
-                    "Selected term deleted.",
-                    Toast.LENGTH_LONG).show();
+
+//            LiveData<List<Course>> stuff = mSchedulerViewModel.getAllCoursesByTerm(selectedTerm.getTerm());
+//            stuff.toString(); // The issue is two fold: 1. The data initialized is "" but needs to be something so initial stat is "not null"
+//            stuff.getValue(); // 2. Need an .onchanged observer for getAllCoursesByTerm(term). Probably in TermDetailsActivity
+            if (mSchedulerViewModel.getAllCoursesByTermID(selectedTerm.getTermID()).isEmpty()) { //check BicycleShop to see if there's a solid implementation
+//            try {
+
+
+                mSchedulerViewModel.deleteTerm(selectedTerm); //this still crashes in AsyncTask
+                Toast.makeText(
+                        getApplicationContext(),
+                        "Selected term deleted.",
+                        Toast.LENGTH_LONG).show();
+            }
+            //catch (Exception e){
+            else {
+                Toast.makeText(
+                        getApplicationContext(),
+                        "Selected term cannot be deleted. Delete its courses first.",
+                        Toast.LENGTH_LONG).show();
+            }
+        }
+        else if (requestCode == DEFAULT_ACTIVITY_REQUEST_CODE) {
+            //do nothing
         }
 
         else {
@@ -312,6 +355,44 @@ public class MainActivity extends AppCompatActivity {
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
+    }
+
+    public void testAddingItems() {
+
+        //mSchedulerViewModel.deleteAllTerms();
+        //testing courses
+//        Intent intent = new Intent(MainActivity.this, CoursesActivity.class);
+//        startActivityForResult(intent, NEW_TERM_ACTIVITY_REQUEST_CODE);
+//
+        //test data
+        Date startDate = new Date(1,31,2020);
+        Date endDate = new Date(7,31,2020);
+
+        List<Course> house = mSchedulerViewModel.getAllCoursesByTermID(1);
+
+        Term fakeTerm = new Term(String.valueOf(System.currentTimeMillis()), startDate, endDate);
+        mSchedulerViewModel.insertTerm(fakeTerm);
+
+
+
+
+//        Course course = new Course(
+//                String.valueOf(System.currentTimeMillis()), startDate, false, endDate,
+//                false, "Plan to Take", 1,
+//                "Mr. mentor", "phone number", "name@mail.com");
+//        mSchedulerViewModel.insertCourse(course); //Fix this it now crashes every time
+//s
+//        course = new Course(
+//                String.valueOf(System.currentTimeMillis())+800, startDate, false, endDate,
+//                false, "Plan to Take", fakeTerm.getTermID(),
+//                "Mr. mentor", "phone number", "name@mail.com");
+//        mSchedulerViewModel.insertCourse(course);
+
+//        Assessment assessment = new Assessment(String.valueOf(System.currentTimeMillis()), endDateSQL, endDateSQL,
+//                false, "House", String.valueOf(System.currentTimeMillis()));
+//
+//        mSchedulerViewModel.insertAssessment(assessment);
+
     }
 
 

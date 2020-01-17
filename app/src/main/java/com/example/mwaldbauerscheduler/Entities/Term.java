@@ -8,12 +8,11 @@ import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import java.sql.Date;
+import java.util.Date;
 
-@Entity(tableName = "term_table2", indices = @Index(value = {"term"}, unique = true))
+@Entity(tableName = "term_table")
 public class Term {
 
-    @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "termID")
     private int termID;
@@ -24,7 +23,7 @@ public class Term {
 
     @NonNull
     @ColumnInfo(name = "startDate")
-    private java.sql.Date startDate;
+    private Date startDate;
 
     @NonNull
     @ColumnInfo(name = "stopDate")

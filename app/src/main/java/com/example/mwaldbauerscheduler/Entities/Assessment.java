@@ -6,19 +6,19 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-import java.sql.Date;
+import java.util.Date;
 
+import static androidx.room.ForeignKey.NO_ACTION;
 import static androidx.room.ForeignKey.RESTRICT;
 
 @Entity(tableName = "assessment_table", foreignKeys = {@ForeignKey(entity = Course.class,
-        parentColumns = "courseID",
-        childColumns = "courseID",
-        onDelete = RESTRICT)}
+        parentColumns = "course",
+        childColumns = "course",
+        onDelete = NO_ACTION)}
 )
 
 public class Assessment {
 
-    @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "assessmentID")
     private int assessmentID;
@@ -29,7 +29,7 @@ public class Assessment {
 
     @NonNull
     @ColumnInfo(name = "goalDate")
-    private java.sql.Date goalDate;
+    private Date goalDate;
 
     @NonNull
     @ColumnInfo(name = "goalDateAlarm", defaultValue = "false")
@@ -44,18 +44,18 @@ public class Assessment {
     private String notes;
 
     @NonNull
-    @ColumnInfo(name = "courseID")
-    private int courseID;
+    @ColumnInfo(name = "course")
+    private String course;
 
 
     public Assessment(@NonNull String assessment, @NonNull Date goalDate, @NonNull Date stopDate,
-                      @NonNull Boolean goalDateAlarm, String notes, @NonNull int courseID) {
+                      @NonNull Boolean goalDateAlarm, String notes, @NonNull String course) {
         this.assessment = assessment;
         this.goalDate = goalDate;
         this.goalDateAlarm = goalDateAlarm;
         this.stopDate = stopDate;
         this.notes = notes;
-        this.courseID = courseID;
+        this.course = course;
     }
 
     @NonNull
@@ -108,16 +108,15 @@ public class Assessment {
     }
 
     public void setNotes(String notes) {
-        this.notes = notes;
-    }
+        this.notes = notes; }
 
     @NonNull
-    public int getCourseID() {
-        return courseID;
+    public String getCourse() {
+        return course;
     }
 
-    public void setCourseID(@NonNull int courseID) {
-        this.courseID = courseID;
+    public void setCourse(@NonNull String course) {
+        this.course = course;
     }
 
 

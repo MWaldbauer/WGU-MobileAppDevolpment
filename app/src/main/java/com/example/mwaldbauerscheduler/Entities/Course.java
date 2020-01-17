@@ -7,19 +7,19 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import java.sql.Date;
+import java.util.Date;
 
-import static androidx.room.ForeignKey.RESTRICT;
+import static androidx.room.ForeignKey.NO_ACTION;
 
-@Entity(tableName = "course_table", foreignKeys = {@ForeignKey(entity = Term.class,
-            parentColumns = "term",
-            childColumns = "term",
-            onDelete = RESTRICT)},
-            indices = @Index(value = {"course"}, unique = true)
+@Entity(tableName = "course_table",
+            indices = @Index(value = {"course"}, unique = true),
+            foreignKeys = {@ForeignKey(entity = Term.class,
+            parentColumns = "termID",
+            childColumns = "termID",
+            onDelete = NO_ACTION)}
 )
 public class Course {
 
-    @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "courseID")
     private int courseID;
@@ -30,7 +30,7 @@ public class Course {
 
     @NonNull
     @ColumnInfo(name = "startDate")
-    private java.sql.Date startDate;
+    private Date startDate;
 
     @NonNull
     @ColumnInfo(name = "startDateAlarm", defaultValue = "false")
@@ -49,8 +49,8 @@ public class Course {
     private String completionStatus;
 
     @NonNull
-    @ColumnInfo(name = "term")
-    private String term;
+    @ColumnInfo(name = "termID")
+    private int termID;
 
     @ColumnInfo(name = "mentor")
     private String mentor;
@@ -63,7 +63,7 @@ public class Course {
 
     public Course(@NonNull String course, @NonNull Date startDate, @NonNull Boolean startDateAlarm,
                   @NonNull Date stopDate, @NonNull Boolean stopDateAlarm,
-                  @NonNull String completionStatus, @NonNull String term,
+                  @NonNull String completionStatus, @NonNull int termID,
                   String mentor, String mentorPhone, String mentorEmail) {
         this.course = course;
         this.startDate = startDate;
@@ -71,7 +71,7 @@ public class Course {
         this.stopDate = stopDate;
         this.stopDateAlarm = stopDateAlarm;
         this.completionStatus = completionStatus;
-        this.term = term;
+        this.termID = termID;
         this.mentor = mentor;
         this.mentorPhone = mentorPhone;
         this.mentorEmail = mentorEmail;
@@ -144,12 +144,12 @@ public class Course {
         this.completionStatus = completionStatus;
     }
 
-    public String getTerm() {
-        return term;
+    public int getTermID() {
+        return termID;
     }
 
-    public void setTerm(String term) {
-        this.term = term;
+    public void setTermID(int termID) {
+        this.termID = termID;
     }
 
     public String getMentor() {

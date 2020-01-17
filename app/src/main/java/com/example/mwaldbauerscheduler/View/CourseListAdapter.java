@@ -1,6 +1,7 @@
 package com.example.mwaldbauerscheduler.View;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,14 +40,31 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Sc
 
     @Override //I don't think this code block is being executed.
     public void onBindViewHolder(CourseListAdapter.SchedulerViewHolder holder, int position) {
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                selectedCourse = mAllCourses.get(position);
+                notifyDataSetChanged();
+            }
+        });
+
         if (mAllCourses != null) {
             Course current = mAllCourses.get(position);
             holder.schedulerItemView.setText(current.getCourse());
-//            Log.i("Course name in CourseListAdapter",current.getCourse()); //** Remove later
-        } else {
-            // Covers the case of data not being ready yet.
-            holder.schedulerItemView.setText("No CoursesActivity");
+
+            if (current == selectedCourse) { //add another Course then tests
+                holder.itemView.setBackgroundColor(Color.parseColor("#000000"));
+            }
+            else
+            {holder.itemView.setBackgroundColor(Color.parseColor("#d3d3d3"));
+            }
+
         }
+        else {
+            // Covers the case of data not being ready yet.
+            holder.schedulerItemView.setText("No Courses");
+        }
+
     }
 
     public Course getSelectedCourse(){
@@ -59,8 +77,6 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Sc
         Log.i("Course name set in CourseListAdapter",""); //** Remove later
     }
 
-    // getItemCount() is called many times, and when it is first called,
-    // mAllCourses has not been updated (means initially, it's null, and we can't return null).
     @Override
     public int getItemCount() {
         if (mAllCourses != null)

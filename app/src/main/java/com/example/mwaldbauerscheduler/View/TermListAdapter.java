@@ -10,8 +10,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mwaldbauerscheduler.DAO.TermDao;
+import com.example.mwaldbauerscheduler.Database.SchedulerRepository;
+import com.example.mwaldbauerscheduler.Entities.Course;
 import com.example.mwaldbauerscheduler.Entities.Term;
 import com.example.mwaldbauerscheduler.R;
 
@@ -26,7 +30,6 @@ public class TermListAdapter extends RecyclerView.Adapter<TermListAdapter.Schedu
         public SchedulerViewHolder(View itemView) {
             super(itemView);
             schedulerItemView = itemView.findViewById(R.id.textView);
-            //itemView.setOnClickListener((View.OnClickListener) this); //this should be safe?
         }
     }
 
@@ -34,8 +37,11 @@ public class TermListAdapter extends RecyclerView.Adapter<TermListAdapter.Schedu
     //private int selectedPos = RecyclerView.NO_POSITION;
     private final LayoutInflater mInflater;
     private List<Term> mAllTerms; // Cached copy of terms
+    private LiveData<List<Course>> mAllCoursesByTerm = null; // Cached copy of courses
+    private List<Course> mAllCoursesByTermID = null;
     public TermListAdapter(Context context) { mInflater = LayoutInflater.from(context); }
-    public Term selectedTerm;
+    private Term selectedTerm;
+
 
     @Override
     public SchedulerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -43,16 +49,27 @@ public class TermListAdapter extends RecyclerView.Adapter<TermListAdapter.Schedu
         return new SchedulerViewHolder(itemView);
     }
 
-    @Override //I don't think this code block is being executed.
+    @Override
     public void onBindViewHolder(SchedulerViewHolder holder, int position) {
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                selectedTerm = mAllTerms.get(position);
+                selectedTerm = mAllTerms.get(position); //mAllTerms is being grabbed somehow. I don't know how.
+                //setAllCoursesByTerm(selectedTerm.getTerm());
+                setAllCoursesByTermID(selectedTerm.getTermID()); //mAllCoursesByTermID is, however not.
+
                 notifyDataSetChanged();
             }
         });
 
+        if (selectedTerm != null) {
+
+            //selectedTerm.getClasses(); I need to make this method exist.
+            //This allows us to check if there are any classes in selectedTerm, to then delete in MainActivity
+            //This call doesn't need to be here for that purpose I don't think!
+
+
+        }
 
         if (mAllTerms != null) {
             Term current = mAllTerms.get(position);
@@ -61,6 +78,9 @@ public class TermListAdapter extends RecyclerView.Adapter<TermListAdapter.Schedu
             //highlights selected term will graphical bug if multiple terms are clicked quickly
             if (current == selectedTerm){
                 holder.itemView.setBackgroundColor(Color.parseColor("#000000"));
+            }
+            else
+                {holder.itemView.setBackgroundColor(Color.parseColor("#d3d3d3"));
             }
 
 
@@ -75,14 +95,34 @@ public class TermListAdapter extends RecyclerView.Adapter<TermListAdapter.Schedu
         return selectedTerm;
     }
 
+//    private List<Course> getAllCoursesByTerm(Term term) {
+//
+//        selectedTerm.getAttachedCourses();
+//    }
+
     public void setTerms(List<Term> terms){
         mAllTerms = terms;
         notifyDataSetChanged();
         Log.i("Term name set in TermListAdapter",""); //** Remove later
     }
 
-    // getItemCount() is called many times, and when it is first called,
-    // mAllTerms has not been updated (means initially, it's null, and we can't return null).
+    public void setAllCoursesByTerm(String term){
+
+        mAllCoursesByTerm =
+        com.example.mwaldbauerscheduler.MainActivity //this isn't actually working. Deubg tomorrow
+                .mSchedulerViewModel.getAllCoursesByTerm(selectedTerm.getTerm());
+
+        notifyDataSetChanged(); //Active Counter = 1 for "bb" I don't know why
+    }
+
+    public void setAllCoursesByTermID(int termID){
+        mAllCoursesByTermID =
+        com.example.mwaldbauerscheduler.MainActivity //this isn't actually working. Deubg tomorrow
+                        .mSchedulerViewModel.getAllCoursesByTermID(selectedTerm.getTermID());
+        notifyDataSetChanged();
+    }
+
+
     @Override
     public int getItemCount() {
         if (mAllTerms != null)

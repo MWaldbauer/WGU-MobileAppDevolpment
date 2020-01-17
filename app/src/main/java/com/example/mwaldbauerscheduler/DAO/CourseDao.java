@@ -15,8 +15,11 @@ public interface CourseDao extends BaseDao<Course> {
     @Query("SELECT * FROM course_table ORDER BY startDate ASC")
     LiveData<List<Course>> getCourses();
 
-    @Query("SELECT * FROM course_table WHERE term = :term ORDER BY startDate ASC")
-    LiveData<List<Course>> getCoursesByTerm(String term);
+    @Query("SELECT * FROM course_table WHERE course = :term ORDER BY startDate ASC") //this is just jank for now
+    LiveData<List<Course>> getAllCoursesByTerm(String term); // We need a version of this that is a List without Live Data
+
+    @Query("SELECT * FROM course_table WHERE termID = :termID ORDER BY startDate ASC")
+    List<Course> getAllCoursesByTermID(int termID); // We need a version of this that is a List without Live Data
 
     @Query("DELETE FROM course_table")
     void deleteCoursesTable();

@@ -2,14 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-        <!-- "Mark Favorite", should appear as action button if possible -->
+        <!-- "Terms", should appear as action button if possible -->
+        <item
+            android:id="@+id/action_terms"
+            android:icon="@drawable/ic_add_circle_outline_black_24dp"
+            android:title="Action 0"
+            app:showAsAction="ifRoom"/>
+
+        <!-- "Courses", should appear as action button if possible -->
         <item
             android:id="@+id/action_favorite"
             android:icon="@drawable/ic_event_note_black_24dp"
             android:title="Action 1"
             app:showAsAction="ifRoom"/>
 
-        <!-- Settings, should always be in the overflow -->
+        <!-- "Assessments" -->
         <item android:id="@+id/action_settings"
             android:icon="@drawable/ic_search_black_16dp"
             android:title="Action 2"

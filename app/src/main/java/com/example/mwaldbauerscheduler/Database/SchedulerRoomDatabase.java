@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Term.class, Course.class, Assessment.class}, version = 2, exportSchema = false)
+@Database(entities = {Term.class, Course.class, Assessment.class}, version = 5, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class SchedulerRoomDatabase extends RoomDatabase {
 
@@ -31,9 +31,6 @@ public abstract class SchedulerRoomDatabase extends RoomDatabase {
     public abstract AssessmentDao assessmentDao();
 
     private static volatile SchedulerRoomDatabase INSTANCE;
-    private static final int NUMBER_OF_THREADS = 4;
-    static final ExecutorService databaseWriteExecutor =
-            Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     public static SchedulerRoomDatabase getDatabase(final Context context) {
         Log.i("getDatabase called (Term)", ""); //** Remove later
@@ -41,13 +38,18 @@ public abstract class SchedulerRoomDatabase extends RoomDatabase {
             synchronized (SchedulerRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            SchedulerRoomDatabase.class, "scheduler_database").
-                            fallbackToDestructiveMigration()
+                            SchedulerRoomDatabase.class, "scheduler_database")
+                            .fallbackToDestructiveMigration()
+                            .allowMainThreadQueries()
                             .build();
                 }
             }
         }
         return INSTANCE;
+    }
+
+    public static void destroyInstance() {
+        INSTANCE = null;
     }
 
 //    private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {

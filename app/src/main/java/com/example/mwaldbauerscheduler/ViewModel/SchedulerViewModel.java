@@ -16,11 +16,16 @@ import java.util.List;
 public class SchedulerViewModel extends AndroidViewModel {
 
     private SchedulerRepository mRepository;
+    private String term;
+    private String course;
+    private int termID;
 
     //Live Data
     public LiveData<List<Term>> mAllTerms; //checking if public helps
+    private LiveData<List<Course>> mCoursesAttachedToTerm;
     private LiveData<List<Course>> mAllCourses;
     private LiveData<List<Course>> mAllCoursesByTerm;
+    public List<Course> mAllCoursesByTermID;
     private LiveData<List<Assessment>> mAllAssessments;
     private LiveData<List<Assessment>> mAllAssessmentsByCourseID;
 
@@ -29,10 +34,12 @@ public class SchedulerViewModel extends AndroidViewModel {
         Log.i("(Term) SchedulerViewModel called", ""); //** Remove later
         mRepository = new SchedulerRepository(application);
         mAllTerms = mRepository.getAllTerms();
+        mCoursesAttachedToTerm = mRepository.getCoursesAttachedToTerm(term);
         mAllCourses = mRepository.getAllCourses();
-        mAllCoursesByTerm = mRepository.getAllCoursesByTerm();
+        mAllCoursesByTerm = mRepository.getAllCoursesByTerm(term);
+        mAllCoursesByTermID = mRepository.getAllCoursesByTermID(termID);
         mAllAssessments = mRepository.getAllAssessments();
-        mAllAssessmentsByCourseID = mRepository.getAllAssessmentsByCourseID();
+        mAllAssessmentsByCourseID = mRepository.getAllAssessmentsByCourse();
     }
 
     //Live Data ViewModel
@@ -40,12 +47,22 @@ public class SchedulerViewModel extends AndroidViewModel {
         Log.i("getallTerms called",""); //** Remove later
         return mAllTerms;
     }
+
+    public LiveData<List<Course>> getCoursesAttachedToTerm(String term) {
+        return mCoursesAttachedToTerm;
+    };
+
     public LiveData<List<Course>> getAllCourses() {
         return mAllCourses;
     };
-    public LiveData<List<Course>> getAllCoursesByTerm() {
+    public LiveData<List<Course>> getAllCoursesByTerm(String term) {
         return mAllCoursesByTerm;
     };
+
+    public List<Course> getAllCoursesByTermID(int termID) {
+        return mAllCoursesByTermID;
+    };
+
     public LiveData<List<Assessment>> getAllAssessments() {
         return mAllAssessments;
     };
@@ -74,7 +91,7 @@ public class SchedulerViewModel extends AndroidViewModel {
     //deletes
     public void deleteTerm(Term term) {mRepository.deleteTerm(term);}
 
-    public  void deleteCourse(Course course) {mRepository.deleteCourse(course);}
+    public void deleteCourse(Course course) {mRepository.deleteCourse(course);}
 
     public void deleteAssessment(Assessment assessment) {mRepository.deleteAssessment(assessment);}
 
