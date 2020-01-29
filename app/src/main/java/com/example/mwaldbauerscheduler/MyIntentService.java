@@ -4,10 +4,15 @@ import android.app.IntentService;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.content.Context;
+import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+
+import java.util.Date;
+
+import static com.example.mwaldbauerscheduler.Activities.HomeActivity.CHANNEL_ID;
+import static com.example.mwaldbauerscheduler.Activities.HomeActivity.notificationManager;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -34,27 +39,28 @@ public class MyIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
 
-        Intent notifyIntent = new Intent(this, MainActivity.class);
+        Intent notifyIntent = new Intent(this, TermListActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 2, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Notification.Builder builder = new Notification.Builder(this);
-        builder.setContentTitle("Reminder")
-        .setContentText("MWScheduler Alarm!")
-        .setSmallIcon(R.drawable.ic_search_black_16dp)
-        .setVisibility(Notification.VISIBILITY_PUBLIC)
-        .setContentIntent(pendingIntent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                    .setSmallIcon(R.drawable.ic_school_24px)
+                    .setContentTitle("Reminder")
+                    .setContentText("MWScheduler Alarm!")
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
-        Notification notificationCompat = builder.build();
-        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
-        managerCompat.notify((int) System.currentTimeMillis(), notificationCompat);
+            notificationManager.notify((int) System.currentTimeMillis(), builder.build());
+        } else{
+            Notification.Builder builder = new Notification.Builder(this);
+            builder.setContentTitle("Reminder")
+                    .setContentText("MWScheduler Alarm!")
+                    .setSmallIcon(R.drawable.ic_school_24px)
+                    .setVisibility(Notification.VISIBILITY_PUBLIC)
+                    .setContentIntent(pendingIntent);
 
-
-
+            Notification notificationCompat = builder.build();
+            NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
+            managerCompat.notify((int) System.currentTimeMillis(), notificationCompat);
+        }
     }
-
-    /**
-     * Handle action Foo in the provided background thread with the provided
-     * parameters.
-     */
-
 }

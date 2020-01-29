@@ -2,7 +2,6 @@ package com.example.mwaldbauerscheduler.View;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +37,7 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Sc
         return new CourseListAdapter.SchedulerViewHolder(itemView);
     }
 
-    @Override //I don't think this code block is being executed.
+    @Override
     public void onBindViewHolder(CourseListAdapter.SchedulerViewHolder holder, int position) {
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +73,6 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Sc
     public void setCourses(List<Course> courses){
         mAllCourses = courses;
         notifyDataSetChanged();
-        Log.i("Course name set in CourseListAdapter",""); //** Remove later
     }
 
     @Override

@@ -12,8 +12,8 @@ import static androidx.room.ForeignKey.NO_ACTION;
 import static androidx.room.ForeignKey.RESTRICT;
 
 @Entity(tableName = "assessment_table", foreignKeys = {@ForeignKey(entity = Course.class,
-        parentColumns = "course",
-        childColumns = "course",
+        parentColumns = "courseID",
+        childColumns = "courseID",
         onDelete = NO_ACTION)}
 )
 
@@ -35,27 +35,26 @@ public class Assessment {
     @ColumnInfo(name = "goalDateAlarm", defaultValue = "false")
     private Boolean goalDateAlarm;
 
-    //The constructor sets our default value as it's determined at runtime.
     @NonNull
     @ColumnInfo(name = "stopDate")
     private Date stopDate;
 
-    @ColumnInfo(name = "notes")
+    @ColumnInfo(name = "notes") //leaving as null
     private String notes;
 
     @NonNull
-    @ColumnInfo(name = "course")
-    private String course;
+    @ColumnInfo(name = "courseID")
+    private int courseID;
 
 
     public Assessment(@NonNull String assessment, @NonNull Date goalDate, @NonNull Date stopDate,
-                      @NonNull Boolean goalDateAlarm, String notes, @NonNull String course) {
+                      @NonNull Boolean goalDateAlarm, String notes, @NonNull int courseID) {
         this.assessment = assessment;
         this.goalDate = goalDate;
         this.goalDateAlarm = goalDateAlarm;
         this.stopDate = stopDate;
         this.notes = notes;
-        this.course = course;
+        this.courseID = courseID;
     }
 
     @NonNull
@@ -111,12 +110,12 @@ public class Assessment {
         this.notes = notes; }
 
     @NonNull
-    public String getCourse() {
-        return course;
+    public int getCourseID() {
+        return courseID;
     }
 
-    public void setCourse(@NonNull String course) {
-        this.course = course;
+    public void setCourseID(@NonNull int courseID) {
+        this.courseID = courseID;
     }
 
 

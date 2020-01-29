@@ -12,7 +12,6 @@ import java.util.Date;
 import static androidx.room.ForeignKey.NO_ACTION;
 
 @Entity(tableName = "course_table",
-            indices = @Index(value = {"course"}, unique = true),
             foreignKeys = {@ForeignKey(entity = Term.class,
             parentColumns = "termID",
             childColumns = "termID",
@@ -61,10 +60,15 @@ public class Course {
     @ColumnInfo(name = "mentor_email")
     private String mentorEmail;
 
+
+
+    @ColumnInfo(name = "notes")
+    private String notes;
+
     public Course(@NonNull String course, @NonNull Date startDate, @NonNull Boolean startDateAlarm,
                   @NonNull Date stopDate, @NonNull Boolean stopDateAlarm,
                   @NonNull String completionStatus, @NonNull int termID,
-                  String mentor, String mentorPhone, String mentorEmail) {
+                  String mentor, String mentorPhone, String mentorEmail, String notes) {
         this.course = course;
         this.startDate = startDate;
         this.startDateAlarm = startDateAlarm;
@@ -75,6 +79,7 @@ public class Course {
         this.mentor = mentor;
         this.mentorPhone = mentorPhone;
         this.mentorEmail = mentorEmail;
+        this.notes = notes;
 
         if (this.completionStatus == null) {this.completionStatus = "Plan to Take";}
 
@@ -175,4 +180,9 @@ public class Course {
     public void setMentorEmail(String mentorEmail) {
         this.mentorEmail = mentorEmail;
     }
+
+    public String getNotes() {return notes;}
+
+    public void setNotes(String notes) {this.notes = notes;}
+
 }

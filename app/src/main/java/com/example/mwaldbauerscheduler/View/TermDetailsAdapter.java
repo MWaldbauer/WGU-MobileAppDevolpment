@@ -1,7 +1,6 @@
 package com.example.mwaldbauerscheduler.View;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,12 +35,12 @@ public class TermDetailsAdapter extends RecyclerView.Adapter<TermDetailsAdapter.
         return new SchedulerViewHolder(itemView);
     }
 
-    @Override //I don't think this code block is being executed.
+    @Override
     public void onBindViewHolder(SchedulerViewHolder holder, int position) {
         if (mAllTerms != null) {
             Term current = mAllTerms.get(position);
             holder.schedulerItemView.setText(current.getTerm());
-//            Log.i("Term name in TermListAdapter",current.getTerm()); //** Remove later
+
         } else {
             // Covers the case of data not being ready yet.
             holder.schedulerItemView.setText("No Terms");
@@ -51,11 +50,9 @@ public class TermDetailsAdapter extends RecyclerView.Adapter<TermDetailsAdapter.
     public void setTerms(List<Term> terms){
         mAllTerms = terms;
         notifyDataSetChanged();
-        Log.i("Term name set in TermListAdapter",""); //** Remove later
     }
 
-    // getItemCount() is called many times, and when it is first called,
-    // mAllTerms has not been updated (means initially, it's null, and we can't return null).
+
     @Override
     public int getItemCount() {
         if (mAllTerms != null)

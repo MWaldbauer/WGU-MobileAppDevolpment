@@ -38,85 +38,85 @@
             android:padding="@dimen/small_padding"
             android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/edit_start_date_month"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView2"
-            android:layout_marginTop="@dimen/small_padding"
-            android:layout_marginBottom="@dimen/big_padding"
-            android:fontFamily="sans-serif-light"
-            android:hint="Term Month"
-            android:padding="@dimen/small_padding"
-            android:textSize="18sp" />
+            <EditText
+                android:id="@+id/edit_start_date_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView2"
+                android:layout_marginTop="@dimen/small_padding"
+                android:layout_marginBottom="@dimen/big_padding"
+                android:fontFamily="sans-serif-light"
+                android:hint="Month"
+                android:padding="@dimen/small_padding"
+                android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/edit_start_date_day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView2"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="@dimen/small_padding"
-            android:layout_marginBottom="@dimen/big_padding"
-            android:layout_toRightOf="@id/edit_start_date_month"
-            android:fontFamily="sans-serif-light"
-            android:hint="Term Day"
-            android:padding="@dimen/small_padding"
-            android:textSize="18sp" />
+            <EditText
+                android:id="@+id/edit_start_date_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView2"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="@dimen/small_padding"
+                android:layout_marginBottom="@dimen/big_padding"
+                android:layout_toRightOf="@id/edit_start_date_month"
+                android:fontFamily="sans-serif-light"
+                android:hint="Day"
+                android:padding="@dimen/small_padding"
+                android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/edit_start_date_year"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView2"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="9dp"
-            android:layout_marginTop="@dimen/small_padding"
-            android:layout_marginBottom="@dimen/big_padding"
-            android:layout_toRightOf="@id/edit_start_date_day"
-            android:fontFamily="sans-serif-light"
-            android:hint="Term Year"
-            android:padding="@dimen/small_padding" />
+            <EditText
+                android:id="@+id/edit_start_date_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView2"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="@dimen/small_padding"
+                android:layout_marginBottom="@dimen/big_padding"
+                android:layout_toRightOf="@id/edit_start_date_day"
+                android:fontFamily="sans-serif-light"
+                android:hint="Year"
+                android:padding="@dimen/small_padding" />
 
-        <EditText
-            android:id="@+id/edit_end_date_month"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView3"
-            android:layout_marginTop="@dimen/small_padding"
-            android:layout_marginBottom="@dimen/big_padding"
-            android:fontFamily="sans-serif-light"
-            android:hint="Term Month"
-            android:padding="@dimen/small_padding"
-            android:textSize="18sp" />
+            <EditText
+                android:id="@+id/edit_end_date_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView3"
+                android:layout_marginTop="@dimen/small_padding"
+                android:layout_marginBottom="@dimen/big_padding"
+                android:fontFamily="sans-serif-light"
+                android:hint="Month"
+                android:padding="@dimen/small_padding"
+                android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/edit_end_date_day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView3"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="@dimen/small_padding"
-            android:layout_marginBottom="@dimen/big_padding"
-            android:layout_toRightOf="@id/edit_end_date_month"
-            android:fontFamily="sans-serif-light"
-            android:hint="Term Day"
-            android:padding="@dimen/small_padding"
-            android:textSize="18sp" />
+            <EditText
+                android:id="@+id/edit_end_date_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView3"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="@dimen/small_padding"
+                android:layout_marginBottom="@dimen/big_padding"
+                android:layout_toRightOf="@id/edit_end_date_month"
+                android:fontFamily="sans-serif-light"
+                android:hint="Day"
+                android:padding="@dimen/small_padding"
+                android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/edit_end_date_year"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView3"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="@dimen/small_padding"
-            android:layout_marginBottom="@dimen/big_padding"
-            android:layout_toRightOf="@id/edit_end_date_day"
-            android:fontFamily="sans-serif-light"
-            android:hint="Term Year"
-            android:padding="@dimen/small_padding" />
+            <EditText
+                android:id="@+id/edit_end_date_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView3"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="@dimen/small_padding"
+                android:layout_marginBottom="@dimen/big_padding"
+                android:layout_toRightOf="@id/edit_end_date_day"
+                android:fontFamily="sans-serif-light"
+                android:hint="Year"
+                android:padding="@dimen/small_padding" />
 
 
         <Button
@@ -126,7 +126,7 @@
             android:layout_below="@id/edit_end_date_month"
             android:layout_marginTop="10dp"
             android:background="@color/colorPrimary"
-            android:text="Update"
+            android:text="Save/Update"
             android:textColor="@color/buttonLabel" />
 
         <TextView

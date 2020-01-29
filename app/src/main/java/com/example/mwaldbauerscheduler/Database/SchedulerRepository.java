@@ -2,7 +2,6 @@ package com.example.mwaldbauerscheduler.Database;
 
 import android.app.Application;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -14,34 +13,33 @@ import com.example.mwaldbauerscheduler.Entities.Course;
 import com.example.mwaldbauerscheduler.Entities.Term;
 
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class SchedulerRepository {
 
+    public SchedulerRoomDatabase db;
     private TermDao mTermDao;
     private CourseDao mCourseDao;
     private AssessmentDao mAssessmentDao;
+    private Executor executor = Executors.newSingleThreadExecutor();
 
     public LiveData<List<Term>> mAllTerms;
     private LiveData<List<Course>> mCoursesAttachedToTerm;
     private LiveData<List<Course>> mAllCourses;
-    private LiveData<List<Course>> mAllCoursesByTerm;
-    public List<Course> mAllCoursesByTermID;
     private LiveData<List<Assessment>> mAllAssessments;
-    private LiveData<List<Assessment>> mAllAssessmentsByCourse;
+    private LiveData<List<Course>> mAllCoursesByTermIDLive;
+    private LiveData<List<Assessment>> mAllAssessmentsByCourseIDLive;
+    public List<Course> mAllCoursesByTermID;
+    private List<Assessment> mAllAssessmentsByCourseID;
 
     private String term;
     private String course;
     private int termID;
+    private int courseID;
 
-
-    // Note that in order to unit test the WordRepository, you have to remove the Application
-    // dependency. This adds complexity and much more code, and this sample is not about testing.
-    // See the BasicSample in the android-architecture-components repository at
-    // https://github.com/googlesamples
     public SchedulerRepository(Application application) {
-        SchedulerRoomDatabase db = SchedulerRoomDatabase.getDatabase(application);
-        Log.i("(Term) SchedulerRepository called", ""); //** Remove later
-        //Dao
+        db = SchedulerRoomDatabase.getDatabase(application);
         mTermDao = db.termDao();
         mCourseDao = db.courseDao();
         mAssessmentDao = db.assessmentDao();
@@ -50,18 +48,14 @@ public class SchedulerRepository {
         mAllTerms = mTermDao.getAllTerms();
         mCoursesAttachedToTerm = mTermDao.getCoursesAttachedToTerm(term);
         mAllCourses = mCourseDao.getCourses();
-        mAllCoursesByTerm = mCourseDao.getAllCoursesByTerm(term);
         mAllCoursesByTermID = mCourseDao.getAllCoursesByTermID(termID);
+        mAllCoursesByTermIDLive = mCourseDao.getAllCoursesByTermIDLive(termID);
         mAllAssessments = mAssessmentDao.getAssessments();
-        mAllAssessmentsByCourse = mAssessmentDao.getAssessmentsByCourse(course);
+        mAllAssessmentsByCourseID = mAssessmentDao.getAllAssessmentsByCourseID(courseID);
+        mAllAssessmentsByCourseIDLive = mAssessmentDao.getAllAssessmentsByCourseIDLive(courseID);
 
     }
 
-    // Room executes all queries on a separate thread.
-    // Observed LiveData will notify the observer when the data has changed.
-
-    //do I need to make these Public? Yes, yes I do.
-    //Do I need to pass term and course here? And do they connect
     public LiveData<List<Term>> getAllTerms() {
         return mAllTerms;
     }
@@ -73,19 +67,24 @@ public class SchedulerRepository {
     public LiveData<List<Course>> getAllCourses() {
         return mAllCourses;
     };
-    public LiveData<List<Course>> getAllCoursesByTerm(String term) {
-        return mAllCoursesByTerm;
+    public LiveData<List<Course>> getAllCoursesByTermIDLive(int termID) {
+        return mCourseDao.getAllCoursesByTermIDLive(termID);
     };
 
     public List<Course> getAllCoursesByTermID(int termID) {
-        return mAllCoursesByTermID;
+        return mCourseDao.getAllCoursesByTermID(termID);
     };
 
     public LiveData<List<Assessment>> getAllAssessments() {
         return mAllAssessments;
     };
-    public LiveData<List<Assessment>> getAllAssessmentsByCourse() {
-        return mAllAssessmentsByCourse.getValue() == null ? null : mAllAssessmentsByCourse;
+
+    public LiveData<List<Assessment>> getAllAssessmentsByCourseIDLive(int courseID) {
+        return mAssessmentDao.getAllAssessmentsByCourseIDLive(courseID);
+    };
+
+    public List<Assessment> getAllAssessmentsByCourseID(int courseID) {
+        return mAssessmentDao.getAllAssessmentsByCourseID(courseID);
     };
 
     // You must call this on a non-UI thread or your app will throw an exception. Room ensures
@@ -94,14 +93,13 @@ public class SchedulerRepository {
     //Example public void insert (Word word) {new insertAsyncTask(mWordDao).execute(word);}
 
     //inserts
-    public void insertTerm(Term term) {
-        Log.i("Term name in Repository",term.getTerm()); //** Remove later
-        new InsertTermAsyncTask(mTermDao).execute(term);}
+    public void insertTerm(Term term) {executor.execute(() -> db.termDao().insert(term));
+    }
 
-    public void insertCourse(Course course) {new InsertCourseAsyncTask(mCourseDao).execute(course);}
+    public void insertCourse(Course course) {executor.execute(() -> db.courseDao().insert(course));}
 
     public void insertAssessment(Assessment assessment)
-        {new InsertAssessmentAsyncTask(mAssessmentDao).execute(assessment);}
+        {executor.execute(() -> db.assessmentDao().insert(assessment));}
 
     //updates
     public void updateTerm(Term term) {new UpdateTermAsyncTask(mTermDao).execute(term);}
@@ -124,6 +122,21 @@ public class SchedulerRepository {
     public void deleteAllCourses() {new DeleteAllCoursesAsyncTask(mCourseDao).execute();}
 
     public void deleteAllAssessments() {new DeleteAllAssessmentsAsyncTask(mAssessmentDao).execute();}
+
+    public Term getTermByID(int termID) {
+
+        return  db.termDao().getTermByID(termID);
+    }
+
+    public Course getCourseByID(int courseID) {
+
+        return  db.courseDao().getCourseByID(courseID);
+    }
+
+    public Assessment getAssessmentByID(int assessmentID) {
+
+        return  db.assessmentDao().getAssessmentByID(assessmentID);
+    }
 
     //insertAsyncTasks
     private static class InsertTermAsyncTask extends AsyncTask<Term, Void, Void> {

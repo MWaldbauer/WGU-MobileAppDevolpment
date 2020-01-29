@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.mwaldbauerscheduler">
+    package="com.example.mwaldbauerscheduler"
+    android:versionName="Release">
 
     <application
         android:allowBackup="true"
@@ -9,10 +10,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.AssessmentListAdapter"></activity>
-        <activity android:name=".Activities.AssessmentsActivity" />
-        <activity android:name=".Activities.CourseDetailsActivity" />
-        <activity android:name=".Activities.NewCourseActivity" />
+
+        <activity android:name=".Activities.AssessmentEditorActivity" />
+        <activity android:name=".Activities.CourseEditorActivity" />
+        <activity android:name=".View.AssessmentListAdapter" />
 
         <service
             android:name=".MyIntentService"
@@ -23,10 +24,11 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".Activities.CoursesActivity" />
-        <activity android:name=".Activities.TermDetailsActivity" />
-        <activity android:name=".Activities.NewTermActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activities.TermEditorActivity" />
+        <activity android:name=".Activities.CourseListActivity" />
+        <activity android:name=".Activities.AssessmentListActivity" />
+        <activity android:name=".TermListActivity"/>
+        <activity android:name=".Activities.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

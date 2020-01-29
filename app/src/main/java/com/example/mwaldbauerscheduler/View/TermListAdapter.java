@@ -2,22 +2,18 @@ package com.example.mwaldbauerscheduler.View;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.net.sip.SipSession;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mwaldbauerscheduler.DAO.TermDao;
-import com.example.mwaldbauerscheduler.Database.SchedulerRepository;
 import com.example.mwaldbauerscheduler.Entities.Course;
 import com.example.mwaldbauerscheduler.Entities.Term;
 import com.example.mwaldbauerscheduler.R;
+import com.example.mwaldbauerscheduler.TermListActivity;
 
 import java.util.List;
 
@@ -65,7 +61,7 @@ public class TermListAdapter extends RecyclerView.Adapter<TermListAdapter.Schedu
         if (selectedTerm != null) {
 
             //selectedTerm.getClasses(); I need to make this method exist.
-            //This allows us to check if there are any classes in selectedTerm, to then delete in MainActivity
+            //This allows us to check if there are any classes in selectedTerm, to then delete in TermListActivity
             //This call doesn't need to be here for that purpose I don't think!
 
 
@@ -83,8 +79,6 @@ public class TermListAdapter extends RecyclerView.Adapter<TermListAdapter.Schedu
                 {holder.itemView.setBackgroundColor(Color.parseColor("#d3d3d3"));
             }
 
-
-//            Log.i("Term name in TermListAdapter",current.getTerm()); //** Remove later
         } else {
             // Covers the case of data not being ready yet.
             holder.schedulerItemView.setText("No Terms");
@@ -103,21 +97,11 @@ public class TermListAdapter extends RecyclerView.Adapter<TermListAdapter.Schedu
     public void setTerms(List<Term> terms){
         mAllTerms = terms;
         notifyDataSetChanged();
-        Log.i("Term name set in TermListAdapter",""); //** Remove later
-    }
-
-    public void setAllCoursesByTerm(String term){
-
-        mAllCoursesByTerm =
-        com.example.mwaldbauerscheduler.MainActivity //this isn't actually working. Deubg tomorrow
-                .mSchedulerViewModel.getAllCoursesByTerm(selectedTerm.getTerm());
-
-        notifyDataSetChanged(); //Active Counter = 1 for "bb" I don't know why
     }
 
     public void setAllCoursesByTermID(int termID){
         mAllCoursesByTermID =
-        com.example.mwaldbauerscheduler.MainActivity //this isn't actually working. Deubg tomorrow
+        TermListActivity //this isn't actually working. Deubg tomorrow
                         .mSchedulerViewModel.getAllCoursesByTermID(selectedTerm.getTermID());
         notifyDataSetChanged();
     }

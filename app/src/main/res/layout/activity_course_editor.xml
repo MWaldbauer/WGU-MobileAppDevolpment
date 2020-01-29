@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/app_bar" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <Button
+                android:id="@+id/button_addAssessment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/button_save"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorPrimary"
+                android:text="View/Add Assessment(s)"
+                android:textColor="@color/buttonLabel" />
+
+            <EditText
+                android:id="@+id/edit_course"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_padding"
+                android:layout_marginBottom="@dimen/big_padding"
+                android:fontFamily="sans-serif-light"
+                android:hint="@string/hint_course"
+                android:inputType="textAutoComplete"
+                android:padding="@dimen/small_padding"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/course_edit_start_date_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView2"
+                android:layout_marginTop="@dimen/small_padding"
+                android:layout_marginBottom="@dimen/big_padding"
+                android:fontFamily="sans-serif-light"
+                android:hint="Month"
+                android:padding="@dimen/small_padding"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/course_edit_start_date_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView2"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="@dimen/small_padding"
+                android:layout_marginBottom="@dimen/big_padding"
+                android:layout_toRightOf="@id/course_edit_start_date_month"
+                android:fontFamily="sans-serif-light"
+                android:hint="Day"
+                android:padding="@dimen/small_padding"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/course_edit_start_date_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView2"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="@dimen/small_padding"
+                android:layout_marginBottom="@dimen/big_padding"
+                android:layout_toRightOf="@id/course_edit_start_date_day"
+                android:fontFamily="sans-serif-light"
+                android:hint="Year"
+                android:padding="@dimen/small_padding" />
+
+            <EditText
+                android:id="@+id/course_edit_end_date_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView3"
+                android:layout_marginTop="@dimen/small_padding"
+                android:layout_marginBottom="@dimen/big_padding"
+                android:fontFamily="sans-serif-light"
+                android:hint="Month"
+                android:padding="@dimen/small_padding"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/course_edit_end_date_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView3"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="@dimen/small_padding"
+                android:layout_marginBottom="@dimen/big_padding"
+                android:layout_toRightOf="@id/course_edit_end_date_month"
+                android:fontFamily="sans-serif-light"
+                android:hint="Day"
+                android:padding="@dimen/small_padding"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/course_edit_end_date_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView3"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="@dimen/small_padding"
+                android:layout_marginBottom="@dimen/big_padding"
+                android:layout_toRightOf="@id/course_edit_end_date_day"
+                android:fontFamily="sans-serif-light"
+                android:hint="Year"
+                android:padding="@dimen/small_padding" />
+
+
+            <Button
+                android:id="@+id/button_save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_note2"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorPrimary"
+                android:text="Save/Update"
+                android:textColor="@color/buttonLabel" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_course"
+                android:layout_marginTop="6dp"
+                android:text="Course Start Date" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/course_edit_start_date_month"
+                android:layout_marginTop="6dp"
+                android:text="Course End Date" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/button_share_notes2"
+                android:layout_marginTop="@dimen/small_padding"
+                android:text="CONTROL ALARMS"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/alarmCourseStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView4"
+                android:layout_alignStart="@+id/textView4"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="8dp"
+                android:text="Set Alarm for\n Course Start"
+                />
+
+            <Button
+                android:id="@+id/alarmCourseEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView4"
+                android:layout_alignEnd="@+id/textView4"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:text="Set Alarm for\n Course End"
+                />
+
+            <Button
+                android:id="@+id/deleteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/deleteAlarmsButton"
+                android:layout_alignParentBottom="false"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="DELETE COURSE" />
+
+            <Button
+                android:id="@+id/deleteAlarmsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView4"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="75dp"
+                android:text="Delete All Alarms" />
+
+            <Spinner
+                android:id="@+id/edit_completion_status"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/course_edit_end_date_month"
+                android:layout_marginTop="@dimen/small_padding"
+                android:layout_marginBottom="@dimen/small_padding"
+                android:drawSelectorOnTop="true"
+                android:entries="@array/completion_options"
+                android:textSize="18sp"
+                />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_completion_status"
+                android:layout_marginTop="6dp"
+                android:text="Mentor Info" />
+
+            <EditText
+                android:id="@+id/edit_mentor_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView6"
+                android:layout_marginTop="@dimen/small_padding"
+                android:layout_marginBottom="@dimen/big_padding"
+                android:fontFamily="sans-serif-light"
+                android:hint="Mentor Name"
+                android:padding="@dimen/small_padding"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edit_mentor_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_mentor_name"
+                android:layout_marginTop="@dimen/small_padding"
+                android:layout_marginBottom="@dimen/big_padding"
+                android:ems="10"
+                android:fontFamily="sans-serif-light"
+                android:inputType="phone"
+                android:hint="111-222-4444"
+                android:padding="@dimen/small_padding"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/edit_mentor_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_mentor_name"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="@dimen/small_padding"
+                android:layout_marginBottom="@dimen/big_padding"
+                android:layout_toRightOf="@id/edit_mentor_phone"
+                android:fontFamily="sans-serif-light"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:hint="mentor@wgu.edu"
+                android:padding="@dimen/small_padding"
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/edit_note2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_mentor_phone"
+                android:layout_marginTop="@dimen/small_padding"
+                android:layout_marginBottom="@dimen/big_padding"
+                android:fontFamily="sans-serif-light"
+                android:hint="Enter a note"
+                android:padding="@dimen/small_padding"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/button_share_notes2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/button_addAssessment"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorPrimary"
+                android:text="Share Note"
+                android:textColor="@color/buttonLabel" />
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

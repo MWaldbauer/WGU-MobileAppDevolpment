@@ -20,4 +20,7 @@ public interface TermDao extends BaseDao<Term> {
 
     @Query("SELECT * FROM course_table WHERE course = :term ORDER BY startDate ASC") //this is also janked
     LiveData<List<Course>> getCoursesAttachedToTerm(String term);
+
+    @Query("SELECT * FROM term_table WHERE termID = :termID") //this is also janked
+    Term getTermByID(int termID);
 }

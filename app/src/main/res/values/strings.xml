@@ -4,4 +4,11 @@
     <string name="channel_description">MWScheduler</string>
     <string name="hint_startdate">Start Date...</string>
     <string name="hint_stopdate">Stop Date...</string>
+
+    <string-array name="completion_options">
+        <item>Plan To Take</item>
+        <item>In Progress</item>
+        <item>Completed</item>
+        <item>Dropped</item>
+    </string-array>
 </resources>

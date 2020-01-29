@@ -1,7 +1,5 @@
 package com.example.mwaldbauerscheduler.Entities;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -30,13 +28,9 @@ public class Term {
     private Date stopDate;
 
     public Term(@NonNull String term, @NonNull Date startDate, @NonNull Date stopDate) {
-
         this.term = term;
         this.startDate = startDate;
         this.stopDate = stopDate;
-
-        Log.i("Term name in constructor",term); //** Remove later
-        Log.i("Term ID", Integer.toString(termID)); //** Remove later. Used to make sure autogenerate works.
     }
 
     public String toString() {
@@ -48,10 +42,7 @@ public class Term {
         return newString;
     }
 
-    public int getTermID() {
-        Log.i("Term ID in getTermID", Integer.toString(termID)); //** Remove later
-        return termID;
-    }
+    public int getTermID() {return termID;  }
 
     public void setTermID(int termID) {
         this.termID = termID;

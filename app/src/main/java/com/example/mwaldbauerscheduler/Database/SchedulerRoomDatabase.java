@@ -1,14 +1,12 @@
 package com.example.mwaldbauerscheduler.Database;
 
 import android.content.Context;
-import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
-import androidx.sqlite.db.SupportSQLiteDatabase;
+
 
 import com.example.mwaldbauerscheduler.DAO.AssessmentDao;
 import com.example.mwaldbauerscheduler.DAO.CourseDao;
@@ -22,7 +20,7 @@ import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Term.class, Course.class, Assessment.class}, version = 5, exportSchema = false)
+@Database(entities = {Term.class, Course.class, Assessment.class}, version = 7, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class SchedulerRoomDatabase extends RoomDatabase {
 
@@ -33,7 +31,6 @@ public abstract class SchedulerRoomDatabase extends RoomDatabase {
     private static volatile SchedulerRoomDatabase INSTANCE;
 
     public static SchedulerRoomDatabase getDatabase(final Context context) {
-        Log.i("getDatabase called (Term)", ""); //** Remove later
         if (INSTANCE == null) {
             synchronized (SchedulerRoomDatabase.class) {
                 if (INSTANCE == null) {
