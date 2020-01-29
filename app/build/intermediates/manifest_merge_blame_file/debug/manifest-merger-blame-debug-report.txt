@@ -1,0 +1,100 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.mwaldbauerscheduler"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+8-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="29" />
+9-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml
+10
+11    <application
+11-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:6:5-37:19
+12        android:allowBackup="true"
+12-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:7:9-35
+13        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+13-->[androidx.core:core:1.1.0] /Users/jennifer.mcgee/.gradle/caches/transforms-2/files-2.1/c527b78844be871c44103f6f45a963fb/core-1.1.0/AndroidManifest.xml:24:18-86
+14        android:debuggable="true"
+15        android:icon="@mipmap/ic_launcher"
+15-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:8:9-43
+16        android:label="@string/app_name"
+16-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:9:9-41
+17        android:roundIcon="@mipmap/ic_launcher_round"
+17-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:10:9-54
+18        android:supportsRtl="true"
+18-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:11:9-35
+19        android:testOnly="true"
+20        android:theme="@style/AppTheme" >
+20-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:12:9-40
+21        <activity android:name="com.example.mwaldbauerscheduler.Activities.AssessmentEditorActivity" />
+21-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:14:9-73
+21-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:14:19-70
+22        <activity android:name="com.example.mwaldbauerscheduler.View.AssessmentListAdapter" />
+22-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:15:9-64
+22-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:15:19-61
+23
+24        <service
+24-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:17:9-19:40
+25            android:name="com.example.mwaldbauerscheduler.MyIntentService"
+25-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:18:13-44
+26            android:exported="false" />
+26-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:19:13-37
+27
+28        <receiver
+28-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:21:9-24:39
+29            android:name="com.example.mwaldbauerscheduler.MyReceiver"
+29-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:22:13-39
+30            android:enabled="true"
+30-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:23:13-35
+31            android:exported="true" />
+31-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:24:13-36
+32
+33        <activity android:name="com.example.mwaldbauerscheduler.Activities.TermEditorActivity" />
+33-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:26:9-67
+33-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:26:19-64
+34        <activity android:name="com.example.mwaldbauerscheduler.Activities.CourseListActivity" />
+34-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:27:9-67
+34-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:27:19-64
+35        <activity android:name="com.example.mwaldbauerscheduler.Activities.AssessmentListActivity" />
+35-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:28:9-71
+35-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:28:19-68
+36        <activity android:name="com.example.mwaldbauerscheduler.TermListActivity" />
+36-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:29:9-53
+36-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:29:19-51
+37        <activity android:name="com.example.mwaldbauerscheduler.Activities.HomeActivity" >
+37-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:30:9-36:20
+37-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:30:19-58
+38            <intent-filter>
+38-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:31:13-35:29
+39                <action android:name="android.intent.action.MAIN" />
+39-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:32:17-69
+39-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:32:25-66
+40
+41                <category android:name="android.intent.category.LAUNCHER" />
+41-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:34:17-77
+41-->/Users/jennifer.mcgee/WGU-MobileAppDevolpment/app/src/main/AndroidManifest.xml:34:27-74
+42            </intent-filter>
+43        </activity>
+44
+45        <service
+45-->[androidx.room:room-runtime:2.2.1] /Users/jennifer.mcgee/.gradle/caches/transforms-2/files-2.1/854b47ac59f20b6a0c922bde7b1e0434/room-runtime-2.2.1/AndroidManifest.xml:25:9-27:40
+46            android:name="androidx.room.MultiInstanceInvalidationService"
+46-->[androidx.room:room-runtime:2.2.1] /Users/jennifer.mcgee/.gradle/caches/transforms-2/files-2.1/854b47ac59f20b6a0c922bde7b1e0434/room-runtime-2.2.1/AndroidManifest.xml:26:13-74
+47            android:exported="false" />
+47-->[androidx.room:room-runtime:2.2.1] /Users/jennifer.mcgee/.gradle/caches/transforms-2/files-2.1/854b47ac59f20b6a0c922bde7b1e0434/room-runtime-2.2.1/AndroidManifest.xml:27:13-37
+48
+49        <provider
+49-->[androidx.lifecycle:lifecycle-process:2.2.0-rc02] /Users/jennifer.mcgee/.gradle/caches/transforms-2/files-2.1/41cd118009a359cbb879dad594299f1e/lifecycle-process-2.2.0-rc02/AndroidManifest.xml:25:9-29:43
+50            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
+50-->[androidx.lifecycle:lifecycle-process:2.2.0-rc02] /Users/jennifer.mcgee/.gradle/caches/transforms-2/files-2.1/41cd118009a359cbb879dad594299f1e/lifecycle-process-2.2.0-rc02/AndroidManifest.xml:26:13-79
+51            android:authorities="com.example.mwaldbauerscheduler.lifecycle-process"
+51-->[androidx.lifecycle:lifecycle-process:2.2.0-rc02] /Users/jennifer.mcgee/.gradle/caches/transforms-2/files-2.1/41cd118009a359cbb879dad594299f1e/lifecycle-process-2.2.0-rc02/AndroidManifest.xml:27:13-69
+52            android:exported="false"
+52-->[androidx.lifecycle:lifecycle-process:2.2.0-rc02] /Users/jennifer.mcgee/.gradle/caches/transforms-2/files-2.1/41cd118009a359cbb879dad594299f1e/lifecycle-process-2.2.0-rc02/AndroidManifest.xml:28:13-37
+53            android:multiprocess="true" />
+53-->[androidx.lifecycle:lifecycle-process:2.2.0-rc02] /Users/jennifer.mcgee/.gradle/caches/transforms-2/files-2.1/41cd118009a359cbb879dad594299f1e/lifecycle-process-2.2.0-rc02/AndroidManifest.xml:29:13-40
+54    </application>
+55
+56</manifest>
