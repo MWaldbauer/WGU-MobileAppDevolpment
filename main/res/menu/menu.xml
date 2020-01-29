@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <!-- "Terms", should appear as action button if possible -->
+        <item
+            android:id="@+id/action_terms"
+            android:icon="@drawable/ic_library_books_24px"
+            android:title="Action 0"
+            app:showAsAction="ifRoom"/>
+
+        <!-- "Courses", should appear as action button if possible -->
+        <item
+            android:id="@+id/action_favorite"
+            android:icon="@drawable/ic_menu_book_24px"
+            android:title="Action 1"
+            app:showAsAction="ifRoom"/>
+
+        <!-- "Assessments" -->
+        <item android:id="@+id/action_settings"
+            android:icon="@drawable/ic_assessment_24px"
+            android:title="Action 2"
+            app:showAsAction="ifRoom"/>
+
+</menu>
