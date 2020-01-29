@@ -12,7 +12,6 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".Activities.AssessmentEditorActivity" />
-        <activity android:name=".Activities.CourseEditorActivity" />
         <activity android:name=".View.AssessmentListAdapter" />
 
         <service
